@@ -19,7 +19,7 @@ touch $FILT $COMP
 
 VARLOG_KW_KERN="error|critical|failed|problem"
 VARLOG_KW_BOOT="error|critical|failed|problem"
-VARLOG_KW_AUTH="session opened|session closed|password check failed|authentication failure"
+VARLOG_KW_AUTH="password check failed|authentication failure"
 VARLOG_KW_DPKG="upgrade|install|purge|remove"
 
 tail -25000 $VARLOG_DIR/kern.log | grep -E "$VARLOG_KW_KERN" >> $FILT 2>/dev/null

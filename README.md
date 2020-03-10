@@ -26,7 +26,13 @@ COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 [ -d "$FILT" ] && int_error "'$FILT' cannot be directory.."
 [ -d "$COMP" ] && int_error "'$COMP' cannot be directory.."
 
-touch $FILT $COMP
+touch $FILT
+
+[ "$?" != "0" ] && int_error "Cannot create file '$FILT'"
+
+touch $COMP
+
+[ "$?" != "0" ] && int_error "Cannot create file '$COMP'"
 
 VARLOG_KW_KERN="error|critical|failed|problem"
 VARLOG_KW_BOOT="error|critical|failed|problem"

@@ -23,10 +23,10 @@ VARLOG_KW_BOOT="error|critical|failed|problem"
 VARLOG_KW_AUTH="password check failed|authentication failure"
 VARLOG_KW_DPKG="upgrade|install|purge|remove"
 
-tail -25000 $VARLOG_DIR/kern.log | grep -E "$VARLOG_KW_KERN" >> $FILTERED 2>/dev/null
-tail -25000 $VARLOG_DIR/boot.log | grep -E "$VARLOG_KW_BOOT" >> $FILTERED 2>/dev/null
-tail -25000 $VARLOG_DIR/auth.log | grep -E "$VARLOG_KW_AUTH" >> $FILTERED 2>/dev/null
-tail -25000 $VARLOG_DIR/dpkg.log | grep -E "$VARLOG_KW_DPKG" >> $FILTERED 2>/dev/null
+tail -25000 $VARLOG_DIR/kern.log | grep -iE "$VARLOG_KW_KERN" >> $FILTERED 2>/dev/null
+tail -25000 $VARLOG_DIR/boot.log | grep -iE "$VARLOG_KW_BOOT" >> $FILTERED 2>/dev/null
+tail -25000 $VARLOG_DIR/auth.log | grep -iE "$VARLOG_KW_AUTH" >> $FILTERED 2>/dev/null
+tail -25000 $VARLOG_DIR/dpkg.log | grep -iE "$VARLOG_KW_DPKG" >> $FILTERED 2>/dev/null
 
 RES=`diff $FILTERED $COMPARED`
 cat $FILTERED > $COMPARED

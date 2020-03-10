@@ -6,8 +6,6 @@
 SCRIPT_PATH=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
-VARLOG_DIR=/var/log
-
 [ ! -d "$SCRIPT_DIR" ] && exit
 
 FILT=$SCRIPT_DIR/.monitor.filtered
@@ -16,6 +14,10 @@ COMP=$SCRIPT_DIR/.monitor.compared
 touch $FILT $COMP
 
 KEYWORDS="error|critical|warn"
+
+VARLOG_DIR=/var/log
+
+[ ! -d "$VARLOG_DIR" ] && exit
 
 grep -iE "$KEYWORDS" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
 grep -iE "$KEYWORDS" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null

@@ -17,12 +17,12 @@ COMP=$SCRIPT_DIR/.example.compared
 
 touch $FILT $COMP
 
-KEYWORDS="error|critical|warn"
+KEYWORDS0="error|critical|warn"
 
-grep -E "$KEYWORDS" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
-grep -E "$KEYWORDS" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
-grep -E "$KEYWORDS" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
-grep -E "$KEYWORDS" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS0" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS0" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS0" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS0" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
 
 RES=`diff $FILT $COMP`
 cat $FILT > $COMP

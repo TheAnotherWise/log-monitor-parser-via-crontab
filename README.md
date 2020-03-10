@@ -6,7 +6,7 @@
 #!/bin/bash
 
 int_error() {
-echo $0
+echo $1
 exit
 }
 

@@ -18,10 +18,7 @@ COMPARED=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
 touch $FILTERED $COMPARED
 
-##################################################
 # BEGIN - CUSTOM PARAMS
-##################################################
-
 VARLOG_KW_KERN="error|critical|failed|problem"
 VARLOG_KW_BOOT="error|critical|failed|problem"
 VARLOG_KW_AUTH="password check failed|authentication failure"
@@ -31,10 +28,7 @@ tail -25000 $VARLOG_DIR/kern.log | grep -E "$VARLOG_KW_KERN" >> $FILTERED 2>/dev
 tail -25000 $VARLOG_DIR/boot.log | grep -E "$VARLOG_KW_BOOT" >> $FILTERED 2>/dev/null
 tail -25000 $VARLOG_DIR/auth.log | grep -E "$VARLOG_KW_AUTH" >> $FILTERED 2>/dev/null
 tail -25000 $VARLOG_DIR/dpkg.log | grep -E "$VARLOG_KW_DPKG" >> $FILTERED 2>/dev/null
-
-##################################################
 # END - CUSTOM PARAMS
-##################################################
 
 RES=`diff $FILTERED $COMPARED`
 cat $FILTERED > $COMPARED

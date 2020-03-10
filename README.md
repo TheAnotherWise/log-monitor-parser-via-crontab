@@ -3,6 +3,7 @@
 ```bash
 #!/bin/bash
 
+SCRIPT_NAME=$0
 SCRIPT_PATH=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
@@ -12,8 +13,8 @@ VARLOG_DIR=/var/log
 
 [ ! -d "$VARLOG_DIR" ] && exit
 
-FILTERED=$SCRIPT_DIR/.example.filtered
-COMPARED=$SCRIPT_DIR/.example.compared
+FILTERED=$SCRIPT_DIR/.$SCRIPT_NAME.filtered
+COMPARED=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
 touch $FILTERED $COMPARED
 

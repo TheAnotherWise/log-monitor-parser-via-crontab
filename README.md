@@ -29,6 +29,7 @@ tail -25000 $VARLOG_DIR/auth.log 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> $FI
 tail -25000 $VARLOG_DIR/dpkg.log 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> $FILTERED
 
 RES=`diff $FILTERED $COMPARED`
+
 cat $FILTERED > $COMPARED
 
 rm -f $FILTERED

@@ -1,1 +1,2 @@
-# log-monitor-via-crontab
+# Simple log monitoring via crontab
+

@@ -17,12 +17,15 @@ COMP=$SCRIPT_DIR/.example.compared
 
 touch $FILT $COMP
 
-KEYWORDS0="error|critical|warn"
+VARLOG_KW_KERN="error|critical|warn|failed|problem"
+VARLOG_KW_BOOT="error|critical|warn|failed|problem"
+VARLOG_KW_AUTH="session opened|session closed|password check failed|authentication failure"
+VARLOG_KW_DPKG="upgrade|install|purge|remove"
 
-grep -E "$KEYWORDS0" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
-grep -E "$KEYWORDS0" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
-grep -E "$KEYWORDS0" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
-grep -E "$KEYWORDS0" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
+tail -25000 $VARLOG_DIR/kern.log | grep -E "$VARLOG_KW_KERN" >> $FILT 2>/dev/null
+tail -25000 $VARLOG_DIR/boot.log | grep -E "$VARLOG_KW_BOOT" >> $FILT 2>/dev/null
+tail -25000 $VARLOG_DIR/auth.log | grep -E "$VARLOG_KW_AUTH" >> $FILT 2>/dev/null
+tail -25000 $VARLOG_DIR/dpkg.log | grep -E "$VARLOG_KW_DPKG" >> $FILT 2>/dev/null
 
 RES=`diff $FILT $COMP`
 cat $FILT > $COMP

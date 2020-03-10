@@ -17,8 +17,8 @@ COMP=$SCRIPT_DIR/.example.compared
 
 touch $FILT $COMP
 
-VARLOG_KW_KERN="error|critical|warn|failed|problem"
-VARLOG_KW_BOOT="error|critical|warn|failed|problem"
+VARLOG_KW_KERN="error|critical|failed|problem"
+VARLOG_KW_BOOT="error|critical|failed|problem"
 VARLOG_KW_AUTH="session opened|session closed|password check failed|authentication failure"
 VARLOG_KW_DPKG="upgrade|install|purge|remove"
 

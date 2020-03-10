@@ -12,8 +12,8 @@ VARLOG_DIR=/var/log
 
 [ ! -d "$VARLOG_DIR" ] && exit
 
-FILT=$SCRIPT_DIR/.monitor.filtered
-COMP=$SCRIPT_DIR/.monitor.compared
+FILT=$SCRIPT_DIR/.example.filtered
+COMP=$SCRIPT_DIR/.example.compared
 
 touch $FILT $COMP
 

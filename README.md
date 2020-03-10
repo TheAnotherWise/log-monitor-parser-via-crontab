@@ -19,10 +19,10 @@ VARLOG_DIR=/var/log
 
 [ ! -d "$VARLOG_DIR" ] && exit
 
-grep -iE "$KEYWORDS" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
-grep -iE "$KEYWORDS" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
-grep -iE "$KEYWORDS" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
-grep -iE "$KEYWORDS" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
+grep -E "$KEYWORDS" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
 
 RES=`diff $FILT $COMP`
 cat $FILT > $COMP

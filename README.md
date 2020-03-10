@@ -5,18 +5,26 @@
 ```bash
 #!/bin/bash
 
+int_error() {
+echo $0
+exit
+}
+
 SCRIPT_NAME=$0
 SCRIPT_PATH=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
-[ ! -d "$SCRIPT_DIR" ] && exit
+[ ! -d "$SCRIPT_DIR" ] && int_error "Script dir '$SCRIPT_DIR' not exists.."
 
 VARLOG_DIR=/var/log
 
-[ ! -d "$VARLOG_DIR" ] && exit
+[ ! -d "$VARLOG_DIR" ] && int_error "Log dir '$VARLOG_DIR' not exists.."
 
 FILT=$SCRIPT_DIR/.$SCRIPT_NAME.filtered
 COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
+
+[ -d "$FILT" ] && int_error "'$FILT' cannot be directory.."
+[ -d "$COMP" ] && int_error "'$COMP' cannot be directory.."
 
 touch $FILT $COMP
 

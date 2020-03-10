@@ -6,7 +6,7 @@
 #!/bin/bash
 
 internal_error() {
-echo $1
+echo -n $1
 exit
 }
 
@@ -26,13 +26,9 @@ COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 [ -d "$FILT" ] && internal_error "'$FILT' cannot be directory.."
 [ -d "$COMP" ] && internal_error "'$COMP' cannot be directory.."
 
-touch $FILT
+touch $FILT $COMP
 
-[ "$?" != "0" ] && internal_error "Cannot create file '$FILT'"
-
-touch $COMP
-
-[ "$?" != "0" ] && internal_error "Cannot create file '$COMP'"
+[ "$?" != "0" ] && internal_error "Cannot create files:\n - '$FILT'\n - '$COMP'"
 
 VARLOG_KW_KERN="error|critical|failed|problem"
 VARLOG_KW_BOOT="error|critical|failed|problem"

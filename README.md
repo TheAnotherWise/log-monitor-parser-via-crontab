@@ -24,7 +24,7 @@ COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
 touch $FILT $COMP 2>/dev/null
 
-[ "$?" != "0" ] && error_handler "permission denied:\n - $FILT\n - $COMP"
+[ "$?" != "0" ] && error_handler "permission denied?\n - $FILT\n - $COMP"
 
 # BEGIN
 

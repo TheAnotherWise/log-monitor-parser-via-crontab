@@ -26,16 +26,18 @@ touch $FILT $COMP 2>/dev/null
 
 [ "$?" != "0" ] && error_handler "permission denied?\n - $FILT\n - $COMP"
 
+DEFAULT_KEYWORDS="error|critical|failed|problem|unreaded"
+
 # BEGIN ######################
 
 VARLOG_DIR=/var/log
 
 [ ! -d "$VARLOG_DIR" ] && error_handler "dir '$VARLOG_DIR' not exists.."
 
-VARLOG_KW_KERN="error|critical|failed|problem"
-VARLOG_KW_BOOT="error|critical|failed|problem"
-VARLOG_KW_AUTH="password check failed|authentication failure"
-VARLOG_KW_DPKG="upgrade|install|purge|remove"
+VARLOG_KW_KERN="$DEFAULT_KEYWORDS"
+VARLOG_KW_BOOT="$DEFAULT_KEYWORDS"
+VARLOG_KW_AUTH="password check failed|authentication failure|$DEFAULT_KEYWORDS"
+VARLOG_KW_DPKG="upgrade|install|purge|remove|$DEFAULT_KEYWORDS"
 
 tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$VARLOG_KW_KERN" >> $FILT
 tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$VARLOG_KW_BOOT" >> $FILT

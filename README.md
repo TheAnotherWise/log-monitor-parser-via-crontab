@@ -26,10 +26,10 @@ touch $FILT $COMP 2>/dev/null
 
 [ "$?" != "0" ] && error_handler "permission denied?\n - $FILT\n - $COMP"
 
-KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
-KEYWORDS_2="unread|unreachable|reject|missing|problem"
+DEFAULT_KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
+DEFAULT_KEYWORDS_2="unread|unreachable|reject|missing|problem"
 
-DEFAULT_KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
+DEFAULT_KEYWORDS="$DEFAULT_KEYWORDS_1|$DEFAULT_KEYWORDS_2"
 
 # BEGIN ######################
 

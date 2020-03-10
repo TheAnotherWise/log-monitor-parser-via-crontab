@@ -26,6 +26,8 @@ touch $FILT $COMP 2>/dev/null
 
 [ "$?" != "0" ] && error_handler "permission denied:\n - $FILT\n - $COMP"
 
+# BEGIN
+
 VARLOG_DIR=/var/log
 
 [ ! -d "$VARLOG_DIR" ] && error_handler "dir '$VARLOG_DIR' not exists.."
@@ -39,6 +41,8 @@ tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$VARLOG_KW_KERN" >> $FI
 tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$VARLOG_KW_BOOT" >> $FILT
 tail -25000 $VARLOG_DIR/auth.log 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> $FILT
 tail -25000 $VARLOG_DIR/dpkg.log 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> $FILT
+
+# END
 
 RES=`diff $FILT $COMP`
 

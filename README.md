@@ -15,12 +15,12 @@ COMP=$SCRIPT_DIR/.monitor.compared
 
 touch $FILT $COMP
 
-DEFAULT_GRAB="error|critical|warn"
+KEYWORDS="error|critical|warn"
 
-grep -iE "$DEFAULT_GRAB" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
-grep -iE "$DEFAULT_GRAB" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
-grep -iE "$DEFAULT_GRAB" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
-grep -iE "$DEFAULT_GRAB" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
+grep -iE "$KEYWORDS" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
+grep -iE "$KEYWORDS" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null
+grep -iE "$KEYWORDS" $VARLOG_DIR/auth.log >> $FILT 2>/dev/null
+grep -iE "$KEYWORDS" $VARLOG_DIR/dpkg.log >> $FILT 2>/dev/null
 
 RES=`diff $FILT $COMP`
 cat $FILT > $COMP

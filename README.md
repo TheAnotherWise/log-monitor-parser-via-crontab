@@ -8,16 +8,16 @@ SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
 [ ! -d "$SCRIPT_DIR" ] && exit
 
+VARLOG_DIR=/var/log
+
+[ ! -d "$VARLOG_DIR" ] && exit
+
 FILT=$SCRIPT_DIR/.monitor.filtered
 COMP=$SCRIPT_DIR/.monitor.compared
 
 touch $FILT $COMP
 
 KEYWORDS="error|critical|warn"
-
-VARLOG_DIR=/var/log
-
-[ ! -d "$VARLOG_DIR" ] && exit
 
 grep -E "$KEYWORDS" $VARLOG_DIR/kern.log >> $FILT 2>/dev/null
 grep -E "$KEYWORDS" $VARLOG_DIR/boot.log >> $FILT 2>/dev/null

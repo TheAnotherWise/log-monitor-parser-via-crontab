@@ -16,10 +16,6 @@ SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
 [ ! -d "$SCRIPT_DIR" ] && error_handler "dir '$SCRIPT_DIR' not exists.."
 
-VARLOG_DIR=/var/log
-
-[ ! -d "$VARLOG_DIR" ] && error_handler "dir '$VARLOG_DIR' not exists.."
-
 FILT=$SCRIPT_DIR/.$SCRIPT_NAME.filtered
 COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
@@ -29,6 +25,10 @@ COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 touch $FILT $COMP 2>/dev/null
 
 [ "$?" != "0" ] && error_handler "permission denied:\n - $FILT\n - $COMP"
+
+VARLOG_DIR=/var/log
+
+[ ! -d "$VARLOG_DIR" ] && error_handler "dir '$VARLOG_DIR' not exists.."
 
 VARLOG_KW_KERN="error|critical|failed|problem"
 VARLOG_KW_BOOT="error|critical|failed|problem"

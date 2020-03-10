@@ -5,7 +5,7 @@
 ```bash
 #!/bin/bash
 
-int_error() {
+internal_error() {
 echo $1
 exit
 }
@@ -14,25 +14,25 @@ SCRIPT_NAME=$0
 SCRIPT_PATH=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
-[ ! -d "$SCRIPT_DIR" ] && int_error "Script dir '$SCRIPT_DIR' not exists.."
+[ ! -d "$SCRIPT_DIR" ] && internal_error "Script dir '$SCRIPT_DIR' not exists.."
 
 VARLOG_DIR=/var/log
 
-[ ! -d "$VARLOG_DIR" ] && int_error "Log dir '$VARLOG_DIR' not exists.."
+[ ! -d "$VARLOG_DIR" ] && internal_error "Log dir '$VARLOG_DIR' not exists.."
 
 FILT=$SCRIPT_DIR/.$SCRIPT_NAME.filtered
 COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
-[ -d "$FILT" ] && int_error "'$FILT' cannot be directory.."
-[ -d "$COMP" ] && int_error "'$COMP' cannot be directory.."
+[ -d "$FILT" ] && internal_error "'$FILT' cannot be directory.."
+[ -d "$COMP" ] && internal_error "'$COMP' cannot be directory.."
 
 touch $FILT
 
-[ "$?" != "0" ] && int_error "Cannot create file '$FILT'"
+[ "$?" != "0" ] && internal_error "Cannot create file '$FILT'"
 
 touch $COMP
 
-[ "$?" != "0" ] && int_error "Cannot create file '$COMP'"
+[ "$?" != "0" ] && internal_error "Cannot create file '$COMP'"
 
 VARLOG_KW_KERN="error|critical|failed|problem"
 VARLOG_KW_BOOT="error|critical|failed|problem"

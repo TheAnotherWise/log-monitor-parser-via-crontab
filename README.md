@@ -1,4 +1,4 @@
-# Simple log parser via crontab
+# Log parser via crontab
 
 ```bash
 #!/bin/bash

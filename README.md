@@ -29,5 +29,5 @@ cat $FILT > $COMP
 
 rm -f $FILT
 
-[ -n "$RES" ] && echo -ne "$RES"
+[ -n "$RES" ] && echo -e "$RES"
 ```

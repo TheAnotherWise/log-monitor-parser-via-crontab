@@ -33,6 +33,7 @@ touch $FILT $COMP 2>/dev/null
 
 [ "$?" != "0" ] && notify "permission denied?\n - $FILT\n - $COMP" "$EMAILS"
 
+# Default keywords
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS_2="unread|unreachable|missing|problem|block" # reject
 
@@ -44,25 +45,8 @@ VARLOG_DIR=/var/log
 VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
 VARLOG_KW_DPKG="upgrade|install|purge|remove|$KEYWORDS"
 
-# General
 tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
 tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/syslog 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-
-# RHEL / CentOS / OL
-tail -25000 $VARLOG_DIR/auth.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/yum.log 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> $FILT
-tail -25000 $VARLOG_DIR/daemon.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/messages 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/rhsm/rhsm.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/audit/audit.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/firewalld 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/audit 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-
-# Debian / Ubuntu
-tail -25000 $VARLOG_DIR/apparmor.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
-tail -25000 $VARLOG_DIR/secure 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> $FILT
-tail -25000 $VARLOG_DIR/dpkg.log 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> $FILT
 # END ######################
 
 RES=`diff $FILT $COMP`
@@ -100,6 +84,7 @@ COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
 touch $FILT $COMP 2>/dev/null
 
+# Default keywords
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS_2="unread|unreachable|missing|problem|block" # reject
 
@@ -112,6 +97,7 @@ VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
 VARLOG_KW_DPKG="upgrade|install|purge|remove|$KEYWORDS"
 
 tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
+tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
 # END ######################
 
 RES=`diff $FILT $COMP`

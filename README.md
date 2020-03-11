@@ -1,5 +1,12 @@
 # Log parser via crontab
 
+### Tested on:
+ - Red Hat Enterprise Linux 6 / 7 / 8
+ - CentOS 6 / 7 / 8
+ - Oracle Linux / 7 / 8
+ - Debian 8 / 9 / 10
+ - Ubuntu 14 / 16 / 18
+  
 ## With validation
 ```bash
 #!/bin/bash

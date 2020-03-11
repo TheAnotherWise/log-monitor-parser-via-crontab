@@ -28,9 +28,9 @@ notify() {
   exit
 }
 
-SCRIPT_NAME=`basename "$0"`
-SCRIPT_PATH=`readlink -f "$0"`
-SCRIPT_DIR=`dirname "$SCRIPT_PATH"`
+SCRIPT_NAME="`basename "$0"`"
+SCRIPT_PATH="`readlink -f "$0"`"
+SCRIPT_DIR="`dirname "$SCRIPT_PATH"`"
 
 FILT="$SCRIPT_DIR/.$SCRIPT_NAME.filtered"
 COMP="$SCRIPT_DIR/.$SCRIPT_NAME.compared"

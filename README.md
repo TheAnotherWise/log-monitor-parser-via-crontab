@@ -11,8 +11,8 @@ DBA4=admin4@hostname.localdomain
 NOTIFY_MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
-  [ ! -n "$3" ] && SUBJECT="Crontab Script Error" || SUBJECT="$3"
-  echo -e "$1" | mailx -s "$3" "$2"
+  [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Crontab Script Error"
+  echo -e "$1" | mailx -s "$SUBJECT" "$2"
   exit
 }
 

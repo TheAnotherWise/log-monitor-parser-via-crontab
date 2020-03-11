@@ -1,8 +1,8 @@
 # Log parser via crontab (with notification by mail)
 
 ## How works
- * **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
- * **progress step** - every next execution will grab just new errors
+ * **initialization step** - first execution will grab all keywords, probably huge ammount of text and send notification
+ * **progress step** - every next execution will grab just new keywords
  
 ## Importants
  * `.compared`, `.filtered` is created inside same directory like script as hidden file

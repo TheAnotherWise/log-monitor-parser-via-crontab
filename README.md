@@ -1,6 +1,6 @@
 # Log parser via crontab (with notification by mail)
 
-## Requrements
+## Requirements
  - `mailx` or `sendmail` client
  - configured service `sendmail` or `postfix`
  - used commands: 

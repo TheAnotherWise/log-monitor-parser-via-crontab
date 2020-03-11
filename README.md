@@ -24,7 +24,7 @@
  - Debian 8 / 9 / 10
  - Ubuntu 14 / 16 / 18
   
-## Script
+#
 
 ```bash
 #!/bin/bash

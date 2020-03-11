@@ -39,7 +39,6 @@ KEYWORDS_2="unread|unreachable|missing|problem|block" # reject
 KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
 
 # BEGIN ######################
-
 VARLOG_DIR=/var/log
 
 VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
@@ -64,7 +63,6 @@ tail -25000 $VARLOG_DIR/audit 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
 tail -25000 $VARLOG_DIR/apparmor.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
 tail -25000 $VARLOG_DIR/secure 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> $FILT
 tail -25000 $VARLOG_DIR/dpkg.log 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> $FILT
-
 # END ######################
 
 RES=`diff $FILT $COMP`
@@ -76,7 +74,7 @@ rm -f $FILT
 [ -n "$RES" ] && notify "$RES" $EMAILS "Error from log"
 ```
 
-## With validation
+## Without validation
 ```bash
 #!/bin/bash
 
@@ -100,7 +98,7 @@ SCRIPT_DIR=`dirname $SCRIPT_PATH`
 FILT=$SCRIPT_DIR/.$SCRIPT_NAME.filtered
 COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
-touch $FILT $COMP
+touch $FILT $COMP 2>/dev/null
 
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS_2="unread|unreachable|missing|problem|block" # reject

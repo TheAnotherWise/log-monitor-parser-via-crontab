@@ -40,7 +40,6 @@ KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
 
 # BEGIN ######################
 VARLOG_DIR="/var/log"
-OPTLOG_DIR="/opt/log"
 
 VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
 VARLOG_KW_DPKG="upgrade|install|purge|remove|$KEYWORDS"

@@ -52,7 +52,7 @@ tail -25000 "$VARLOG_DIR/kern.log" 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
 tail -25000 "$VARLOG_DIR/boot.log" 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
 # END ######################
 
-RES=`diff "$FILT" "$COMP"`
+RES="`diff "$FILT" "$COMP"`"
 
 cat "$FILT" > "$COMP"
 

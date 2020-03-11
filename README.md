@@ -42,8 +42,6 @@ DEFAULT_KEYWORDS="$DEFAULT_KEYWORDS_1|$DEFAULT_KEYWORDS_2"
 
 VARLOG_DIR=/var/log
 
-[ ! -d "$VARLOG_DIR" ] && error_handler "dir '$VARLOG_DIR' not exists.."
-
 VARLOG_KW_KERN="$DEFAULT_KEYWORDS"
 VARLOG_KW_BOOT="$DEFAULT_KEYWORDS"
 VARLOG_KW_AUTH="password check failed|authentication failure|$DEFAULT_KEYWORDS"

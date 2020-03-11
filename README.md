@@ -41,13 +41,11 @@ KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
 
 VARLOG_DIR=/var/log
 
-VARLOG_KW_KERN="$KEYWORDS"
-VARLOG_KW_BOOT="$KEYWORDS"
 VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
 VARLOG_KW_DPKG="upgrade|install|purge|remove|$KEYWORDS"
 
-tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$VARLOG_KW_KERN" >> $FILT
-tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$VARLOG_KW_BOOT" >> $FILT
+tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
+tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$KEYWORDS" >> $FILT
 tail -25000 $VARLOG_DIR/secure 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> $FILT
 tail -25000 $VARLOG_DIR/yum.log 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> $FILT
 

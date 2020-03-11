@@ -1,16 +1,17 @@
 # Log parser via crontab (with notification by mail)
 
 ## How works
- - **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
- - **progress step** - every next execution will grab just new errors
- 
+ * **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
+ * **progress step** - every next execution will grab just new errors
+ * asddfs
+
 ## Requirements
- - `mailx` or `sendmail` client
- - configured service `sendmail` or `postfix`
- - used commands: 
-   - `diff`
-   - `touch`, `cat`, `tail`, `grep`, `rm`, `echo`, `exit`
-   - `test`, `basename`, `dirname`, `readlink`
+ * `mailx` or `sendmail` client
+ * configured service `sendmail` or `postfix`
+ * used commands: 
+   * `diff`
+   * `touch`, `cat`, `tail`, `grep`, `rm`, `echo`, `exit`
+   * `test`, `basename`, `dirname`, `readlink`
 
 ## Tested on
  - Red Hat Enterprise Linux 6 / 7 / 8

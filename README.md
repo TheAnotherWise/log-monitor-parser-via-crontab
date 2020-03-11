@@ -5,8 +5,15 @@
 ```bash
 #!/bin/bash
 
+DB1=admin1@hostname.localdomain
+DB2=admin2@hostname.localdomain
+DB3=admin3@hostname.localdomain
+DB4=admin4@hostname.localdomain
+
+NOTIFY_MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
+
 error_handler() {
-echo -e "$1" | mailx -s "Notification" root@hostname.localdomain
+echo -e "$1" | mailx -s "Notification" $NOTIFY_MAILS
 exit
 }
 
@@ -55,5 +62,5 @@ cat $FILT > $COMP
 
 rm -f $FILT
 
-[ -n "$RES" ] && echo -e "$RES" | mailx -s "Notification" root@hostname.localdomain
+[ -n "$RES" ] && echo -e "$RES" | mailx -s "Notification" $NOTIFY_MAILS
 ```

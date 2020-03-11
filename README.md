@@ -33,7 +33,7 @@ touch $FILT $COMP 2>/dev/null
 [ "$?" != "0" ] && notify "permission denied?\n - $FILT\n - $COMP" "$EMAILS"
 
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
-KEYWORDS_2="unread|unreachable|reject|missing|problem"
+KEYWORDS_2="unread|unreachable|missing|problem" # reject
 
 DEFAULT_KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
 

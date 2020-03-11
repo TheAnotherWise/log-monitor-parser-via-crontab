@@ -11,25 +11,26 @@ DBA4=admin4@hostname.localdomain
 NOTIFY_MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
-echo -e "$1" | mailx -s "Notification" $NOTIFY_MAILS
-exit
+  [ ! -n "$3" ] && SUBJECT="Crontab Script Error" || SUBJECT="$3"
+  echo -e "$1" | mailx -s "$3" "$2"
+  exit
 }
 
 SCRIPT_NAME=$0
 SCRIPT_PATH=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
-[ ! -d "$SCRIPT_DIR" ] && notify "dir '$SCRIPT_DIR' not exists.."
+[ ! -d "$SCRIPT_DIR" ] && notify "dir '$SCRIPT_DIR' not exists.." "$NOTIFY_MAILS"
 
 FILT=$SCRIPT_DIR/.$SCRIPT_NAME.filtered
 COMP=$SCRIPT_DIR/.$SCRIPT_NAME.compared
 
-[ -d "$FILT" ] && notify "'$FILT' cannot be dir.."
-[ -d "$COMP" ] && notify "'$COMP' cannot be dir.."
+[ -d "$FILT" ] && notify "'$FILT' cannot be dir.." "$NOTIFY_MAILS"
+[ -d "$COMP" ] && notify "'$COMP' cannot be dir.." "$NOTIFY_MAILS"
 
 touch $FILT $COMP 2>/dev/null
 
-[ "$?" != "0" ] && notify "permission denied?\n - $FILT\n - $COMP"
+[ "$?" != "0" ] && notify "permission denied?\n - $FILT\n - $COMP" "$NOTIFY_MAILS"
 
 DEFAULT_KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 DEFAULT_KEYWORDS_2="unread|unreachable|reject|missing|problem"
@@ -58,5 +59,5 @@ cat $FILT > $COMP
 
 rm -f $FILT
 
-[ -n "$RES" ] && echo -e "$RES" | mailx -s "Notification" $NOTIFY_MAILS
+[ -n "$RES" ] && notify "$RES" $NOTIFY_MAILS "Error from log"
 ```

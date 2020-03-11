@@ -62,5 +62,5 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-[ -n "$RES" ] && notify "$RES" "$EMAILS" "Error from log"
+[ -n "$RES" ] && notify "$RES" "$EMAILS" "Problems from /var/log/kern.log,boot.log"
 ```

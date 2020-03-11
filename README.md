@@ -3,7 +3,8 @@
 ## How works
  * **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
  * **progress step** - every next execution will grab just new errors
- * asddfs
+ * when u delete `.compared` file, initialization will start again
+ * `.filtered` file is temporary file, removed every end of script
 
 ## Requirements
  * `mailx` or `sendmail` client

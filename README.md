@@ -1,5 +1,10 @@
 # Log parser via crontab (with notification by mail)
 
+## Requrements
+ - `mailx` or `sendmail`
+ - configured service `sendmail` or `postfix`
+ - used commands: `diff` and `touch`, `cat`, `tail`, `grep`, `rm`, `test`, `echo`, `exit`
+
 ## How works?
  - **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
  - **progress step** - every next execution will grab just new errors

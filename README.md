@@ -1,5 +1,9 @@
 # Log parser via crontab (with notification by mail)
 
+## How works?
+ - **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
+ - **progress step** - every next execution will grab just new errors
+
 ### Tested on:
  - Red Hat Enterprise Linux 6 / 7 / 8
  - CentOS 6 / 7 / 8

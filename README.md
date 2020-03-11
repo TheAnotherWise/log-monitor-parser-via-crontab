@@ -6,7 +6,7 @@
 #!/bin/bash
 
 error_handler() {
-echo -e "$1"
+echo -e "$1" | mailx -s "Notification" root@hostname.localdomain
 exit
 }
 
@@ -55,5 +55,5 @@ cat $FILT > $COMP
 
 rm -f $FILT
 
-[ -n "$RES" ] && echo -e "$RES"
+[ -n "$RES" ] && echo -e "$RES" | mailx -s "Notification" root@hostname.localdomain
 ```

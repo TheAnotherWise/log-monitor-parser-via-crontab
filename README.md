@@ -35,16 +35,16 @@ touch $FILT $COMP 2>/dev/null
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS_2="unread|unreachable|missing|problem" # reject
 
-DEFAULT_KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
+KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
 
 # BEGIN ######################
 
 VARLOG_DIR=/var/log
 
-VARLOG_KW_KERN="$DEFAULT_KEYWORDS"
-VARLOG_KW_BOOT="$DEFAULT_KEYWORDS"
-VARLOG_KW_AUTH="password check failed|authentication failure|$DEFAULT_KEYWORDS"
-VARLOG_KW_DPKG="upgrade|install|purge|remove|$DEFAULT_KEYWORDS"
+VARLOG_KW_KERN="$KEYWORDS"
+VARLOG_KW_BOOT="$KEYWORDS"
+VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
+VARLOG_KW_DPKG="upgrade|install|purge|remove|$KEYWORDS"
 
 tail -25000 $VARLOG_DIR/kern.log 2>/dev/null | grep -iE "$VARLOG_KW_KERN" >> $FILT
 tail -25000 $VARLOG_DIR/boot.log 2>/dev/null | grep -iE "$VARLOG_KW_BOOT" >> $FILT

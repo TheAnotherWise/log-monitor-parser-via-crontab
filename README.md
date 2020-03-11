@@ -38,7 +38,7 @@ EMAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Crontab Script Error"
-  echo -e "$1" | mailx -s "$SUBJECT" "$2" # or sendmail
+  echo -e "$1" # | mailx -s "$SUBJECT" "$2" # mailx or sendmail
   exit
 }
 
@@ -62,7 +62,7 @@ VARLOG_DIR="/var/log"
 VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
 VARLOG_KW_DPKG="upgrade|install|purge|remove|clean|$KEYWORDS"
 
-find $VARLOG_DIR -mindepth 1 -maxdepth 1 -type f -name "boot.log" -exec tail -25000 {} \; | grep -iE "$KEYWORDS" >> "$FILT"
+find $VARLOG_DIR -mindepth 1 -maxdepth 1 -type f -name "*.log" -exec tail -25000 {} \; | grep -iE "$KEYWORDS" >> "$FILT"
 #### END ######################
 
 RES="`diff "$FILT" "$COMP"`"

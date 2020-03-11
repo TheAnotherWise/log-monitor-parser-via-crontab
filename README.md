@@ -1,4 +1,4 @@
-# Log parser via crontab
+# Log parser via crontab (with notification by mail)
 
 ### Tested on:
  - Red Hat Enterprise Linux 6 / 7 / 8

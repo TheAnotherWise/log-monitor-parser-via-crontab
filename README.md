@@ -3,6 +3,8 @@
 ## How works
  * **initialization step** - first execution will grab all errors, probably huge ammount of text and send notification
  * **progress step** - every next execution will grab just new errors
+ 
+## Importants
  * deletion of `.compared` file will start **initialization** again
  * `.filtered` file is temporary file, removed every end of script
 

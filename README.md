@@ -64,7 +64,7 @@ VARLOG_DIR="/var/log"
 VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
 VARLOG_KW_DPKG="upgrade|install|purge|remove|clean|$KEYWORDS"
 
-find $VARLOG_DIR -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
+find "$VARLOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
 # tail -25000 "$VARLOG_DIR/auth.log" 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> "$FILT"
 # tail -25000 "$VARLOG_DIR/dpkg.log" 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> "$FILT"
 #### END ######################

@@ -1,7 +1,7 @@
 # Log parser via crontab (with notification by mail)
 
 ## Requrements
- - `mailx` or `sendmail`
+ - `mailx` or `sendmail` client
  - configured service `sendmail` or `postfix`
  - used commands: 
    - `diff`
@@ -33,7 +33,7 @@ EMAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Crontab Script Error"
-  echo -e "$1" # | mailx -s "$SUBJECT" "$2"
+  echo -e "$1" # | mailx -s "$SUBJECT" "$2" # mailx or sendmail
   exit
 }
 

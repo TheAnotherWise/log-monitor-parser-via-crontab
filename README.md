@@ -11,10 +11,10 @@
 ```bash
 #!/bin/bash
 
-DBA1=admin1@hostname.localdomain
-DBA2=admin2@hostname.localdomain
-DBA3=admin3@hostname.localdomain
-DBA4=admin4@hostname.localdomain
+DBA1="admin1@hostname.localdomain"
+DBA2="admin2@hostname.localdomain"
+DBA3="admin3@hostname.localdomain"
+DBA4="admin4@hostname.localdomain"
 
 EMAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 

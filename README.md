@@ -51,6 +51,8 @@ COMP="$SCRIPT_DIR/.$SCRIPT_NAME.compared"
 
 touch "$FILT" "$COMP" 2>/dev/null
 
+[ "$?" != "0" ] && notify "Could't create files:\n - $FILT\n -or\n - $COMP" 
+
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS2="unread|unreachable|missing|problem|block" # reject
 

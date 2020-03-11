@@ -40,7 +40,7 @@ touch "$FILT" "$COMP" 2>/dev/null
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS_2="unread|unreachable|missing|problem|block" # reject
 
-KEYWORDS="$KEYWORDS_1|$KEYWORDS_2"
+KEYWORDS="$KEYWORDS_1|$KEYWORDS_2" # default keywords
 
 # BEGIN ######################
 VARLOG_DIR="/var/log"

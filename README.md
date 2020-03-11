@@ -33,7 +33,6 @@ COMP="$SCRIPT_DIR/.$SCRIPT_NAME.compared"
 
 touch "$FILT" "$COMP" 2>/dev/null
 
-# Default keywords
 KEYWORDS_1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS_2="unread|unreachable|missing|problem|block" # reject
 

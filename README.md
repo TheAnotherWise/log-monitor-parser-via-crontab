@@ -5,10 +5,10 @@
 ```bash
 #!/bin/bash
 
-DB1=admin1@hostname.localdomain
-DB2=admin2@hostname.localdomain
-DB3=admin3@hostname.localdomain
-DB4=admin4@hostname.localdomain
+DBA1=admin1@hostname.localdomain
+DBA2=admin2@hostname.localdomain
+DBA3=admin3@hostname.localdomain
+DBA4=admin4@hostname.localdomain
 
 NOTIFY_MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 

@@ -36,7 +36,7 @@ DBA1="admin1@hostname.localdomain"
 # DBA3="admin3@hostname.localdomain"
 # DBA4="admin4@hostname.localdomain"
 
-EMAILS="$DBA1,$DBA2,$DBA3,$DBA4"
+MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
@@ -44,18 +44,18 @@ notify() {
   exit
 }
 
-SCRIPT_NAME="`basename "$0"`"
-SCRIPT_PATH="`readlink -f "$0"`"
-SCRIPT_DIR="`dirname "$SCRIPT_PATH"`"
+EXE_NAME="`basename "$0"`"
+EXE_PATH="`readlink -f "$0"`"
+EXE_DIR="`dirname "$EXE_PATH"`"
 
-FILT="$SCRIPT_DIR/.$SCRIPT_NAME.filtered"
-COMP="$SCRIPT_DIR/.$SCRIPT_NAME.compared"
+FILT="$EXE_DIR/.$EXE_NAME.filtered"
+COMP="$EXE_DIR/.$EXE_NAME.compared"
 
-RESULT="Could't create files:\n - $FILT\n -or\n - $COMP"
+RES="Could't create files:\n - $FILT\n -or\n - $COMP"
 
 touch "$FILT" "$COMP" 2>/dev/null
 
-[ "$?" != "0" ] && notify "$RESULT" "$EMAILS"
+[ "$?" != "0" ] && notify "$RES" "$MAILS"
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS2="unread|unreach|miss|problem|block|terminat"
@@ -84,7 +84,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-MAIL_SUBJECT="Found Keywords in '$LOG0_DIR/$LOG0_FILE0,$LOG0_FILE1'"
+SUBJ="Found Keywords in '$LOG0_DIR/$LOG0_FILE0,$LOG0_FILE1'"
 
-[ -n "$RES" ] && notify "$RESULT" "$EMAILS" "$MAIL_SUBJECT"
+[ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"
 ```

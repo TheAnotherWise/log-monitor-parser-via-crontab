@@ -44,12 +44,12 @@ notify() {
   exit
 }
 
-EXE_NAME="`basename "$0"`"
-EXE_PATH="`readlink -f "$0"`"
-EXE_DIR="`dirname "$EXE_PATH"`"
+FILENAME="`basename "$0"`"
+FILE_PATH="`readlink -f "$0"`"
+DIR_PATH="`dirname "$FILE_PATH"`"
 
-FILT="$EXE_DIR/.$EXE_NAME.filtered"
-COMP="$EXE_DIR/.$EXE_NAME.compared"
+FILT="$DIR_PATH/.$FILENAME.filtered"
+COMP="$DIR_PATH/.$FILENAME.compared"
 
 RES="Could't create files:\n - $FILT\n -or\n - $COMP"
 

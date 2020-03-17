@@ -59,17 +59,17 @@ KEYWORDS2="unread|unreachable|missing|problem|block|terminated|check" # reject
 KEYWORDS="$KEYWORDS1|$KEYWORDS2"
 
 #### BEGIN ######################
-LOG1_DIR="/var/log"
+LOG0_DIR="/var/log"
 
-LOG1_FILE1="auth.log"
-LOG1_FILE2="dpkg.log"
+LOG0_FILE0="auth.log"
+LOG0_FILE1="dpkg.log"
 
-LOG1_KW1="password check failed|authentication failure|$KEYWORDS"
-LOG1_KW2="upgrade|install|purge|remove|clean|$KEYWORDS"
+LOG0_KW0="password check failed|authentication failure|$KEYWORDS"
+LOG0_KW1="upgrade|install|purge|remove|clean|$KEYWORDS"
 
-# find "$LOG_DIR1" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
-tail -25000 "$LOG1_DIR/$LOG1_FILE1" 2>/dev/null | grep -iE "$LOG1_KW1" >> "$FILT"
-tail -25000 "$LOG1_DIR/$LOG1_FILE2" 2>/dev/null | grep -iE "$LOG1_KW2" >> "$FILT"
+# find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
+tail -25000 "$LOG0_DIR/$LOG0_FILE0" 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
+tail -25000 "$LOG0_DIR/$LOG0_FILE1" 2>/dev/null | grep -iE "$LOG0_KW1" >> "$FILT"
 #### END ######################
 
 RES="`diff "$FILT" "$COMP"`"

@@ -39,8 +39,8 @@ DBA1="admin1@hostname.localdomain"
 EMAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
-  [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Crontab Script Error"
-  echo -e "$1" # | unix2dos | mailx -s "$SUBJECT" "$2" # mailx or sendmail
+  [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
+  echo -e "$1" # | unix2dos | mailx -s "$SUBJECT" "$2"
   exit
 }
 
@@ -57,7 +57,7 @@ touch "$FILT" "$COMP" 2>/dev/null
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS2="unread|unreach|miss|problem|block|terminat"
-KEYWORDS3="reject|inject|eject"
+KEYWORDS3="reject|inject|eject|remove|purge|clean|clear"
 
 KEYWORDS="$KEYWORDS1|$KEYWORDS2|$KEYWORDS3"
 

@@ -55,19 +55,20 @@ touch "$FILT" "$COMP" 2>/dev/null
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS2="unread|unreachable|missing|problem|block|terminated|check" # reject
+KEYWORDS3="password check failed|authentication failure"
+KEYWORDS4="upgrade|install|purge|remove|clean"
 
-KEYWORDS="$KEYWORDS1|$KEYWORDS2"
+DEFAULT_KW="$KEYWORDS1|$KEYWORDS2"
 
 #### BEGIN ######################
 LOG0_DIR="/var/log"
 
-LOG0_FILE0="auth.log"
-LOG0_FILE1="dpkg.log"
+LOG0_FILE0="secure"
+LOG0_KW0="$DEFAULT_KW|KEYWORDS3"
 
-LOG0_KW0="password check failed|authentication failure|$KEYWORDS"
-LOG0_KW1="upgrade|install|purge|remove|clean|$KEYWORDS"
+LOG0_FILE1="auth.log"
+LOG0_KW1="$DEFAULT_KW|KEYWORDS3"
 
-# find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
 tail -25000 "$LOG0_DIR/$LOG0_FILE0" 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
 tail -25000 "$LOG0_DIR/$LOG0_FILE1" 2>/dev/null | grep -iE "$LOG0_KW1" >> "$FILT"
 #### END ######################
@@ -78,5 +79,10 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords"
+[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords in '$LOG0_DIR/LOG0_FILE0,LOG0_FILE1'"
 ```
+
+## Files by `find`
+```bash
+find "/var/log/*.log" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
+````

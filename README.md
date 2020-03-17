@@ -56,9 +56,10 @@ touch "$FILT" "$COMP" 2>/dev/null
 [ "$?" != "0" ] && notify "Could't create files:\n - $FILT\n -or\n - $COMP" 
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
-KEYWORDS2="unread|unreach|miss|problem|block|terminat|reject"
+KEYWORDS2="unread|unreach|miss|problem|block|terminat"
+KEYWORDS3="reject|inject|eject"
 
-KEYWORDS="$KEYWORDS1|$KEYWORDS2"
+KEYWORDS="$KEYWORDS1|$KEYWORDS2|$KEYWORDS3"
 
 #### BEGIN ######################
 LOG0_DIR="/var/log"

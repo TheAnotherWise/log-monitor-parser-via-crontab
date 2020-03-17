@@ -59,14 +59,17 @@ KEYWORDS2="unread|unreachable|missing|problem|block|terminated|check" # reject
 KEYWORDS="$KEYWORDS1|$KEYWORDS2"
 
 #### BEGIN ######################
-VARLOG_DIR="/var/log"
+LOG1_DIR="/var/log"
 
-VARLOG_KW_AUTH="password check failed|authentication failure|$KEYWORDS"
-VARLOG_KW_DPKG="upgrade|install|purge|remove|clean|$KEYWORDS"
+LOG1_FILE1="auth.log"
+LOG1_FILE2="dpkg.log"
 
-find "$VARLOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
-# tail -25000 "$VARLOG_DIR/auth.log" 2>/dev/null | grep -iE "$VARLOG_KW_AUTH" >> "$FILT"
-# tail -25000 "$VARLOG_DIR/dpkg.log" 2>/dev/null | grep -iE "$VARLOG_KW_DPKG" >> "$FILT"
+LOG1_KW1="password check failed|authentication failure|$KEYWORDS"
+LOG1_KW2="upgrade|install|purge|remove|clean|$KEYWORDS"
+
+# find "$LOG_DIR1" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
+tail -25000 "$LOG1_DIR/$LOG1_FILE1" 2>/dev/null | grep -iE "$LOG1_KW1" >> "$FILT"
+tail -25000 "$LOG1_DIR/$LOG1_FILE2" 2>/dev/null | grep -iE "$LOG1_KW2" >> "$FILT"
 #### END ######################
 
 RES="`diff "$FILT" "$COMP"`"
@@ -75,5 +78,5 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords '/var/log/*'"
+[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords"
 ```

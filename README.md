@@ -57,8 +57,6 @@ touch "$FILT" "$COMP" 2>/dev/null
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS2="unread|unreachable|missing|problem|block|terminated|check" # reject
-KEYWORDS3="password check failed|authentication failure"
-KEYWORDS4="upgrade|install|purge|remove|clean"
 
 KEYWORDS="$KEYWORDS1|$KEYWORDS2"
 
@@ -66,7 +64,7 @@ KEYWORDS="$KEYWORDS1|$KEYWORDS2"
 LOG0_DIR="/var/log"
 
 LOG0_FILE0="secure*"
-LOG0_KW0="$KEYWORDS|$KEYWORDS3"
+LOG0_KW0="$KEYWORDS|password check failed|authentication failure"
 
 find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE0" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"

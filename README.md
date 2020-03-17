@@ -65,14 +65,13 @@ KEYWORDS="$KEYWORDS1|$KEYWORDS2|$KEYWORDS3"
 LOG0_DIR="/var/log"
 
 LOG0_FILE0="auth.log"
+LOG0_FILE1="dpkg.log"
+
 LOG0_KW0="$KEYWORDS|password check failed|authentication failure"
+LOG0_KW1="$KEYWORDS|install|upgrade"
 
 find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE0" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
-
-LOG0_FILE1="dpkg.log"
-LOG0_KW1="$KEYWORDS|install|upgrade"
-
 find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE1" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW1" >> "$FILT"
 #### END ######################

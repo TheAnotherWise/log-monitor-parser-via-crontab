@@ -8,7 +8,7 @@
  * `.compared`, `.filtered` is created inside same directory like script as hidden file
  * deletion of `.compared` file will start **initialization** again
  * `.filtered` file is temporary file, removed every end of script
- * use 'unix2dos' if want pretty print in *windows*
+ * use `unix2dos` if want pretty print in *windows*
  
 ## Requirements
  * `mailx` or `sendmail` client

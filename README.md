@@ -63,7 +63,7 @@ KEYWORDS3="reject|inject|eject|remove|purge|clean|clear"
 
 KEYWORDS="$KEYWORDS1|$KEYWORDS2|$KEYWORDS3"
 
-#### BEGIN ######################
+#### CUSTOMS - BEGIN ######################
 LOG0_DIR="/var/log"
 
 LOG0_FILE0="auth.log"
@@ -76,7 +76,7 @@ find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE0" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
 find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE1" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW1" >> "$FILT"
-#### END ######################
+#### CUSTOMS - END ######################
 
 RES="`diff "$FILT" "$COMP"`"
 

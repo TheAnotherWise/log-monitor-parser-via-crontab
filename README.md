@@ -82,5 +82,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords in '$LOG0_DIR/$LOG0_FILE0'"
+COMP_NOTIFY="Found Keywords in '$LOG0_DIR/$LOG0_FILE0,LOG0_FILE1'"
+
+[ -n "$RES" ] && notify "$RES" "$EMAILS" "$COMP_NOTIFY"
 ```

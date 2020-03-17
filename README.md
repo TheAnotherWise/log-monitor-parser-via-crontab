@@ -66,7 +66,7 @@ LOG0_DIR="/var/log"
 LOG0_FILE0="secure*"
 LOG0_KW0="$KEYWORDS|$KEYWORDS3"
 
-find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "LOG0_FILE0" \
+find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE0" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
 #### END ######################
 
@@ -76,5 +76,5 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords in '$LOG0_DIR/LOG0_FILE0'"
+[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords in '$LOG0_DIR/$LOG0_FILE0'"
 ```

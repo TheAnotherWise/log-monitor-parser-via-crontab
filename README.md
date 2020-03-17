@@ -56,7 +56,7 @@ touch "$FILT" "$COMP" 2>/dev/null
 [ "$?" != "0" ] && notify "Could't create files:\n - $FILT\n -or\n - $COMP" 
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
-KEYWORDS2="unread|unreacha|miss|problem|block|terminat|check" # reject
+KEYWORDS2="unread|unreacha|miss|problem|block|terminat|reject"
 
 KEYWORDS="$KEYWORDS1|$KEYWORDS2"
 

@@ -40,7 +40,7 @@ EMAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Crontab Script Error"
-  echo -e "$1" # | mailx -s "$SUBJECT" "$2" # mailx or sendmail
+  echo -e "$1" # | unix2dos | mailx -s "$SUBJECT" "$2" # mailx or sendmail
   exit
 }
 

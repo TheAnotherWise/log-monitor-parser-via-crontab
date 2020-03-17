@@ -57,11 +57,11 @@ touch "$FILT" "$COMP" 2>/dev/null
 
 [ "$?" != "0" ] && notify "$RES" "$MAILS"
 
-KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
-KEYWORDS2="unread|unreach|miss|problem|block|terminat"
-KEYWORDS3="reject|inject|eject|remove|purge|clean|clear"
+KW1="err|crit|fail|warn|alert|emerg|denied|deny"
+KW2="unread|unreach|miss|problem|block|terminat"
+KW3="reject|inject|eject|remove|purge|clean|clear"
 
-KEYWORDS="$KEYWORDS1|$KEYWORDS2|$KEYWORDS3"
+KEYWORDS="$KW1|$KW2|$KW3"
 
 #### CUSTOMS - BEGIN ######################
 LOG0_DIR="/var/log"

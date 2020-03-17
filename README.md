@@ -17,6 +17,7 @@
    * `diff`
    * `touch`, `cat`, `tail`, `grep`, `rm`, `echo`, `exit`
    * `test`, `basename`, `dirname`, `readlink`
+   * `unix2dos`, `dos2unix`
 
 ## Tested on
  - Red Hat Enterprise Linux 6 / 7 / 8

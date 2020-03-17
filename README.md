@@ -31,18 +31,18 @@
 ```bash
 #!/bin/bash
 
+notify() {
+  [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
+  echo -e "$1" # | unix2dos | mailx -s "$SUBJECT" "$2"
+  exit
+}
+
 DBA1="admin1@hostname.localdomain"
 # DBA2="admin2@hostname.localdomain"
 # DBA3="admin3@hostname.localdomain"
 # DBA4="admin4@hostname.localdomain"
 
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
-
-notify() {
-  [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
-  echo -e "$1" # | unix2dos | mailx -s "$SUBJECT" "$2"
-  exit
-}
 
 FILENAME="`basename "$0"`"
 FILE_PATH="`readlink -f "$0"`"

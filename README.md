@@ -51,9 +51,11 @@ SCRIPT_DIR="`dirname "$SCRIPT_PATH"`"
 FILT="$SCRIPT_DIR/.$SCRIPT_NAME.filtered"
 COMP="$SCRIPT_DIR/.$SCRIPT_NAME.compared"
 
+COMP_NOTIFY="Could't create files:\n - $FILT\n -or\n - $COMP"
+
 touch "$FILT" "$COMP" 2>/dev/null
 
-[ "$?" != "0" ] && notify "Could't create files:\n - $FILT\n -or\n - $COMP" "$EMAILS"
+[ "$?" != "0" ] && notify "$COMP_NOTIFY" "$EMAILS"
 
 KEYWORDS1="err|crit|fail|warn|alert|emerg|denied|deny"
 KEYWORDS2="unread|unreach|miss|problem|block|terminat"
@@ -82,7 +84,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-COMP_NOTIFY="Found Keywords in '$LOG0_DIR/$LOG0_FILE0,LOG0_FILE1'"
+COMP_NOTIFY="Found Keywords in '$LOG0_DIR/$LOG0_FILE0,$LOG0_FILE1'"
 
 [ -n "$RES" ] && notify "$RES" "$EMAILS" "$COMP_NOTIFY"
 ```

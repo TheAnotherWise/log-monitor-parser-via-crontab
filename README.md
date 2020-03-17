@@ -63,14 +63,11 @@ KEYWORDS="$KEYWORDS1|$KEYWORDS2"
 #### BEGIN ######################
 LOG0_DIR="/var/log"
 
-LOG0_FILE0="secure"
+LOG0_FILE0="secure*"
 LOG0_KW0="$KEYWORDS|$KEYWORDS3"
 
-LOG0_FILE1="auth.log"
-LOG0_KW1="$KEYWORDS|$KEYWORDS3"
-
-tail -25000 "$LOG0_DIR/$LOG0_FILE0" 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
-tail -25000 "$LOG0_DIR/$LOG0_FILE1" 2>/dev/null | grep -iE "$LOG0_KW1" >> "$FILT"
+find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "LOG0_FILE0" \
+-exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
 #### END ######################
 
 RES="`diff "$FILT" "$COMP"`"
@@ -79,10 +76,5 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords in '$LOG0_DIR/LOG0_FILE0,LOG0_FILE1'"
+[ -n "$RES" ] && notify "$RES" "$EMAILS" "Found Keywords in '$LOG0_DIR/LOG0_FILE0'"
 ```
-
-## Files by `find`
-```bash
-find "/var/log/*.log" -mindepth 1 -maxdepth 1 -type f -name "*" -exec tail -25000 {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
-````

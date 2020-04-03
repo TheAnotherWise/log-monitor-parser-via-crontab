@@ -31,7 +31,7 @@
 
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
-  echo -e "$1" | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
+  echo -e "$1" # | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
   exit
 }
 

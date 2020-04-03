@@ -45,8 +45,8 @@ MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 if [[ "$#" != 2 ]] ; then
   notify "Cron Error -> '$0' (1)" "$MAILS" "Directory $1 not exist.." && exit
 else
-  [ ! -d "$1" ] && notify "Crontab error '$0' (2)" "$MAILS" "Directory $1 not exist.." && exit
-  [ ! -f "$1/$2" ] && notify "Crontab error '$0' (3)" "$MAILS" "File '$1/$2' not exist.." && exit
+  [ ! -d "$1" ] && notify "Cron Error '$0' (2)" "$MAILS" "Directory $1 not exist.." && exit
+  [ ! -f "$1/$2" ] && notify "Cron Error '$0' (3)" "$MAILS" "File '$1/$2' not exist.." && exit
 fi
 
 FILENAME="`basename "$0"`"

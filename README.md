@@ -63,8 +63,8 @@ FILENAME="`basename "$0"`"
 FILE_PATH="`readlink -f "$0"`"
 DIR_PATH="`dirname "$FILE_PATH"`"
 
-FILT="$DIR_PATH/.$FILENAME.filtered"
-COMP="$DIR_PATH/.$FILENAME.compared"
+FILT="$DIR_PATH/.$FILENAME.$LOG_FILE.filtered"
+COMP="$DIR_PATH/.$FILENAME.$LOG_FILE.compared"
 
 RES="Could't create files:\n - $FILT\n -or\n - $COMP"
 

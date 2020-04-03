@@ -25,15 +25,13 @@
  - Oracle Linux 6 / 7 / 8
  - Debian 8 / 9 / 10
  - Ubuntu 14 / 16 / 18
-  
-#
 
 ```bash
 #!/bin/bash
 
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
-  echo -e "$1" # | unix2dos | mailx -s "$SUBJECT" "$2"
+  echo -e "$1" | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
   exit
 }
 
@@ -43,6 +41,13 @@ DBA1="admin1@hostname.localdomain"
 # DBA4="admin4@hostname.localdomain"
 
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
+
+if [[ "$#" != 2 ]] ; then
+  echo "Fail"
+else
+  [ ! -d "$1" ] && notify "Crontab error $0" "$MAILS" "Directory $1 not exist.." && exit
+  [ ! -d "$1/$2" ] && notify "Crontab error $0" "$MAILS" "File '$1/$2' not exist.." && exit
+fi
 
 FILENAME="`basename "$0"`"
 FILE_PATH="`readlink -f "$0"`"
@@ -64,18 +69,14 @@ KW3="reject|inject|eject|remove|purge|clean|clear"
 KEYWORDS="$KW1|$KW2|$KW3"
 
 #### CUSTOMS - BEGIN ######################
-LOG0_DIR="/var/log"
+LOG0_DIR="$1"
 
-LOG0_FILE0="auth.log"
-LOG0_FILE1="dpkg.log"
+LOG0_FILE0="$2"
 
 LOG0_KW0="$KEYWORDS|password check failed|authentication failure"
-LOG0_KW1="$KEYWORDS|install|upgrade"
 
 find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE0" \
 -exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
-find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE1" \
--exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW1" >> "$FILT"
 #### CUSTOMS - END ######################
 
 RES="`diff "$FILT" "$COMP"`"

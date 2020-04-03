@@ -65,19 +65,15 @@ touch "$FILT" "$COMP" 2>/dev/null
 KW1="err|crit|fail|warn|alert|emerg|denied|deny"
 KW2="unread|unreach|miss|problem|block|terminat"
 KW3="reject|inject|eject|remove|purge|clean|clear"
+KW4="password check failed|authentication failure"
 
-KEYWORDS="$KW1|$KW2|$KW3"
+KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 
-#### CUSTOMS - BEGIN ######################
-LOG0_DIR="$1"
+LOG_DIR="$1"
+LOG_FILE="$2"
 
-LOG0_FILE0="$2"
-
-LOG0_KW0="$KEYWORDS|password check failed|authentication failure"
-
-find "$LOG0_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG0_FILE0" \
--exec cat {} \; 2>/dev/null | grep -iE "$LOG0_KW0" >> "$FILT"
-#### CUSTOMS - END ######################
+find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" \
+-exec cat {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
 
 RES="`diff "$FILT" "$COMP"`"
 
@@ -85,7 +81,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-SUBJ="Found Keywords in '$LOG0_DIR/$LOG0_FILE0,$LOG0_FILE1'"
+SUBJ="Found Keywords in '$LOG_DIR/$LOG_FILE'"
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"
 ```

@@ -44,9 +44,19 @@ MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 if [[ "$#" != 2 ]] ; then
   notify "Cron Error -> '$0' (1)" "$MAILS" "Directory $1 not exist.." && exit
-else
-  [ ! -d "$1" ] && notify "Cron Error '$0' (2)" "$MAILS" "Directory $1 not exist.." && exit
-  [ ! -f "$1/$2" ] && notify "Cron Error '$0' (3)" "$MAILS" "File '$1/$2' not exist.." && exit
+fi
+
+LOG_DIR="`readlink -f $1`"
+LOG_FILE="`echo "$2" | sed "s/\///g"`"
+
+if [ ! -d "$LOG_DIR" ] ; then
+  notify "Cron Error '$0' (2)" "$MAILS" "Directory '$LOG_DIR' not exist.."
+  exit
+fi
+
+if [ -d "$LOG_DIR/$LOG_FILE" ] ; then
+  notify "Cron Error '$0' (3)" "$MAILS" "Path '$LOG_DIR/$LOG_FILE' is directory.."
+  exit
 fi
 
 FILENAME="`basename "$0"`"
@@ -69,11 +79,8 @@ KW4="password check failed|authentication failure"
 
 KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 
-LOG_DIR="$1"
-LOG_FILE="$2"
-
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" \
--exec cat {} \; 2>/dev/null | grep -iE "$KEYWORDS" >> "$FILT"
+        -exec grep -aE "$KEYWORDS" {} 2>/dev/null \; >> "$FILT"
 
 RES="`diff "$FILT" "$COMP"`"
 

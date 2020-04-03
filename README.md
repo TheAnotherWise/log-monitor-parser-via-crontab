@@ -80,7 +80,7 @@ KW4="password check failed|authentication failure"
 KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" \
-        -exec grep -aE "$KEYWORDS" {} 2>/dev/null \; >> "$FILT"
+        -exec grep -aiE "$KEYWORDS" {} 2>/dev/null \; >> "$FILT"
 
 RES="`diff "$FILT" "$COMP"`"
 

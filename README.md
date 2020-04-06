@@ -1,13 +1,14 @@
 # Log parser
 
 ## How works
- * **initialization step** - first execution will grab all keywords, probably huge ammount of text and send notification
+ * **initialization step** - first execution will grab all keywords, probably huge amount of text and send notification
  * **progress step** - every next execution will grab just new keywords
  
 ## Importants
- * `.compared`, `.filtered` is created inside same directory like script as hidden file
- * deletion of `.compared` file will start **initialization** again on next ececution
- * `.filtered` file is temporary file, removed every end of script
+ * `.compared`, .filtered created inside the same directory like the script as hidden file
+ * deletion of `.compared` file will start initialization again on next ececution
+ * `.filtered` file is a temporary file, removed every end of script
+
 
 ## Requirements
  * `mailx` or `sendmail` client

@@ -88,7 +88,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-SUBJ="Found Keywords in '$LOG_DIR/$LOG_FILE'"
+SUBJ="Found Keywords ($LOG_FILE)"
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"
 ```

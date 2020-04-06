@@ -44,8 +44,8 @@ DBA1="admin1@hostname.localdomain"
 
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
-if [[ "$#" != 2 ]] ; then
-  RES="Required two arguments.."
+if [ "$#" != 2 ] ; then
+  RES="/bin/bash $0 abs_dir_path filename_regex"
   notify "$RES" "$MAILS" && exit
 fi
 
@@ -53,12 +53,12 @@ LOG_DIR="`readlink -f $1`"
 LOG_FILE="`echo "$2" | sed "s/\///g"`"
 
 if [ ! -d "$LOG_DIR" ] ; then
-  RES="Directory '$LOG_DIR' not exist.."
+  RES="'$LOG_DIR' must exist as dir.."
   notify "$RES" "$MAILS" && exit
 fi
 
 if [ -d "$LOG_DIR/$LOG_FILE" ] ; then
-  RES="Path '$LOG_DIR/$LOG_FILE' is directory.."
+  RES="'$LOG_DIR/$LOG_FILE' cannot be dir.."
   notify "$RES" "$MAILS" && exit
 fi
 
@@ -69,9 +69,14 @@ DIR_PATH="`dirname "$FILE_PATH"`"
 FILT="$DIR_PATH/.$FILENAME.$LOG_FILE.filtered"
 COMP="$DIR_PATH/.$FILENAME.$LOG_FILE.compared"
 
+if [ -d "$FILT" ] || [ -d "$COMP" ] ; then
+  RES="'$FILT', '$COMP' cannot be dir.."
+  notify "$RES" "$MAILS" && exit
+fi
+
 touch "$FILT" "$COMP" 2>/dev/null
 
-RES="Could't create files:\n - $FILT\n -or\n - $COMP"
+RES="Could not create one of:\n - '$FILT'\n - '$COMP'"
 
 [ "$?" != "0" ] && notify "$RES" "$MAILS" && exit
 

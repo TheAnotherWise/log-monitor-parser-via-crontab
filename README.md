@@ -46,7 +46,7 @@ MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 if [ "$#" != 2 ] ; then
   RES="/bin/bash $0 abs_dir_path filename_regex\r\n"
-  notify "$RES" "$MAILS" && exit
+  notify "$RES" "$MAILS"
 fi
 
 LOG_DIR="`readlink -f $1`"
@@ -54,12 +54,12 @@ LOG_FILE="`echo "$2" | sed "s/\///g"`"
 
 if [ ! -d "$LOG_DIR" ] ; then
   RES="'$LOG_DIR' must exist as dir..\r\n"
-  notify "$RES" "$MAILS" && exit
+  notify "$RES" "$MAILS"
 fi
 
 if [ -d "$LOG_DIR/$LOG_FILE" ] ; then
   RES="'$LOG_DIR/$LOG_FILE' cannot be dir..\r\n"
-  notify "$RES" "$MAILS" && exit
+  notify "$RES" "$MAILS"
 fi
 
 FILENAME="`basename "$0"`"
@@ -71,14 +71,14 @@ COMP="$DIR_PATH/.$FILENAME.$LOG_FILE.compared"
 
 if [ -d "$FILT" ] || [ -d "$COMP" ] ; then
   RES="Cannot be dir (one of is):\r\n - '$FILT'\r\n - '$COMP'\r\n"
-  notify "$RES" "$MAILS" && exit
+  notify "$RES" "$MAILS"
 fi
 
 touch "$FILT" "$COMP" 2>/dev/null
 
 if [ "$?" != "0" ] ; then
   RES="Could not 'touch' (one of):\r\n - '$FILT'\r\n - '$COMP'\r\n"
-  notify "$RES" "$MAILS" && exit
+  notify "$RES" "$MAILS"
 fi
 
 KW1="err|crit|fail|warn|alert|emerg|denied|deny"

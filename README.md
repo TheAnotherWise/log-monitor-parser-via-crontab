@@ -6,18 +6,13 @@ t# Log parser via crontab (with notification by mail)
  
 ## Importants
  * `.compared`, `.filtered` is created inside same directory like script as hidden file
- * deletion of `.compared` file will start **initialization** again
+ * deletion of `.compared` file will start **initialization** again on next ececution
  * `.filtered` file is temporary file, removed every end of script
- * use `unix2dos` if want pretty print in *windows*
- 
+
 ## Requirements
  * `mailx` or `sendmail` client
  * configured service `sendmail` or `postfix`
- * used commands: 
-   * `diff`
-   * `touch`, `cat`, `tail`, `grep`, `rm`, `echo`, `exit`
-   * `test`, `basename`, `dirname`, `readlink`
-   * `unix2dos`, `dos2unix`
+ * `unix2dos`, `dos2unix`
 
 ## Tested on
  - Red Hat Enterprise Linux 6 / 7 / 8
@@ -106,3 +101,41 @@ fi
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"
 ```
+
+# Example install
+
+## /root/crontab.d/log-monitor.cron
+```bash
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log yum.log
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log kern.log
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log maillog
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log daemon.log
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log cron*
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log secure*
+
+*/5 * * * * /bin/bash /root/crontab.d/log-monitor/httpd.sh /var/log/httpd app_access.log*
+```
+
+### `generic.sh` vs `httpd.sh`
+ There is just one difference between this files, diffretent KEYWORDS
+ 
+`generic.sh`
+```bash
+# ...
+ 
+KW1="err|crit|fail|warn|alert|emerg|denied|deny|"
+KW2="unread|unreach|miss|problem|block|terminat|exclude"
+KW3="reject|inject|eject|remove|purge|clean|clear|close"
+KW4="password check failed|authentication failure"
+
+KEYWORDS="$KW1|$KW2|$KW3|$KW4"
+# ...
+```
+ 
+`httpd.sh`
+```bash
+# ...
+ 
+KEYWORDS=" 5[0-9]{2}"
+
+# ... 

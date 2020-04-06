@@ -1,4 +1,4 @@
-t# Log parser via crontab (with notification by mail)
+# Log parser
 
 ## How works
  * **initialization step** - first execution will grab all keywords, probably huge ammount of text and send notification

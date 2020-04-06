@@ -45,20 +45,21 @@ DBA1="admin1@hostname.localdomain"
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 if [[ "$#" != 2 ]] ; then
-  notify "Cron Error -> '$0' (1)" "$MAILS" "Required two arguments.." && exit
+  RES="Required two arguments.."
+  notify "$RES" "$MAILS" && exit
 fi
 
 LOG_DIR="`readlink -f $1`"
 LOG_FILE="`echo "$2" | sed "s/\///g"`"
 
 if [ ! -d "$LOG_DIR" ] ; then
-  notify "Cron Error '$0' (2)" "$MAILS" "Directory '$LOG_DIR' not exist.."
-  exit
+  RES="Directory '$LOG_DIR' not exist.."
+  notify "$RES" "$MAILS" && exit
 fi
 
 if [ -d "$LOG_DIR/$LOG_FILE" ] ; then
-  notify "Cron Error '$0' (3)" "$MAILS" "Path '$LOG_DIR/$LOG_FILE' is directory.."
-  exit
+  RES="Path '$LOG_DIR/$LOG_FILE' is directory.."
+  notify "$RES" "$MAILS" && exit
 fi
 
 FILENAME="`basename "$0"`"
@@ -68,11 +69,11 @@ DIR_PATH="`dirname "$FILE_PATH"`"
 FILT="$DIR_PATH/.$FILENAME.$LOG_FILE.filtered"
 COMP="$DIR_PATH/.$FILENAME.$LOG_FILE.compared"
 
-RES="Could't create files:\n - $FILT\n -or\n - $COMP"
-
 touch "$FILT" "$COMP" 2>/dev/null
 
-[ "$?" != "0" ] && notify "$RES" "$MAILS"
+RES="Could't create files:\n - $FILT\n -or\n - $COMP"
+
+[ "$?" != "0" ] && notify "$RES" "$MAILS" && exit
 
 KW1="err|crit|fail|warn|alert|emerg|denied|deny"
 KW2="unread|unreach|miss|problem|block|terminat"

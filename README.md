@@ -43,7 +43,7 @@ DBA1="admin1@hostname.localdomain"
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 if [[ "$#" != 2 ]] ; then
-  notify "Cron Error -> '$0' (1)" "$MAILS" "Directory $1 not exist.." && exit
+  notify "Cron Error -> '$0' (1)" "$MAILS" "Required two arguments.." && exit
 fi
 
 LOG_DIR="`readlink -f $1`"

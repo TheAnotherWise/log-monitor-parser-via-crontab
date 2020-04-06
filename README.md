@@ -1,4 +1,4 @@
-# Log parser via crontab (with notification by mail)
+t# Log parser via crontab (with notification by mail)
 
 ## How works
  * **initialization step** - first execution will grab all keywords, probably huge ammount of text and send notification
@@ -100,7 +100,7 @@ rm -f "$FILT"
 SUBJ="Found Keywords ($LOG_FILE)"
 
 if [[ "`stat -c%s "$COMP"`" -gt "$MAX_SIZE" ]] ; then
-  RES="File Too Large, Check File '"$COMP"'.."
+  RES="'"$COMP"' too large.."
 fi
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"

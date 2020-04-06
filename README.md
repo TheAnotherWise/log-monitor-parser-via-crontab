@@ -29,13 +29,13 @@ t# Log parser via crontab (with notification by mail)
 ```bash
 #!/bin/bash
 
-MAX_SIZE="10240000"
-
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
   echo -e "$1" # | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
   exit
 }
+
+MAX_SIZE="10240000"
 
 DBA1="admin1@hostname.localdomain"
 # DBA2="admin2@hostname.localdomain"

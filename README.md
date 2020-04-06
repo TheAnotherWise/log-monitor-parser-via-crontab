@@ -26,6 +26,7 @@ t# Log parser via crontab (with notification by mail)
  - Debian 8 / 9 / 10
  - Ubuntu 14 / 16 / 18
 
+# With validation
 ```bash
 #!/bin/bash
 
@@ -80,6 +81,62 @@ if [ "$?" != "0" ] ; then
   RES="Could not 'touch' (one of):\r\n - '$FILT'\r\n - '$COMP'\r\n"
   notify "$RES" "$MAILS"
 fi
+
+KW1="err|crit|fail|warn|alert|emerg|denied|deny"
+KW2="unread|unreach|miss|problem|block|terminat"
+KW3="reject|inject|eject|remove|purge|clean|clear"
+KW4="password check failed|authentication failure"
+
+KEYWORDS="$KW1|$KW2|$KW3|$KW4"
+
+find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" \
+        -exec grep -aiE "$KEYWORDS" {} 2>/dev/null \; >> "$FILT"
+
+RES="`diff "$FILT" "$COMP"`"
+
+cat "$FILT" > "$COMP"
+
+rm -f "$FILT"
+
+SUBJ="Found keywords ($LOG_FILE)"
+
+if [[ "`stat -c%s "$COMP"`" -gt "$MAX_SIZE" ]] ; then
+  RES="'"$COMP"' too large.."
+fi
+
+[ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"
+```
+
+# Without validation
+```bash
+#!/bin/bash
+
+notify() {
+  [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
+  echo -e "$1" # | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
+  exit
+}
+
+MAX_SIZE="10240000"
+
+DBA1="admin1@hostname.localdomain"
+# DBA2="admin2@hostname.localdomain"
+# DBA3="admin3@hostname.localdomain"
+# DBA4="admin4@hostname.localdomain"
+
+MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
+
+LOG_DIR="`readlink -f $1`"
+LOG_FILE="`echo "$2" | sed "s/\///g"`"
+
+FILENAME="`basename "$0"`"
+FILE_PATH="`readlink -f "$0"`"
+DIR_PATH="`dirname "$FILE_PATH"`"
+
+FILT="$DIR_PATH/.$FILENAME.$LOG_FILE.filtered"
+COMP="$DIR_PATH/.$FILENAME.$LOG_FILE.compared"
+
+touch "$FILT" "$COMP" 2>/dev/null
 
 KW1="err|crit|fail|warn|alert|emerg|denied|deny"
 KW2="unread|unreach|miss|problem|block|terminat"

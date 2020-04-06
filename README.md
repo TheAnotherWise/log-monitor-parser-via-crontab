@@ -117,7 +117,7 @@ fi
 ```
 
 ### `generic.sh` vs `httpd.sh`
- There is just one difference between this files, diffretent KEYWORDS
+ There is just one difference between this files, different keywords
  
 `generic.sh`
 ```bash

@@ -97,7 +97,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-SUBJ="Found Keywords ($LOG_FILE)"
+SUBJ="Found keywords ($LOG_FILE)"
 
 if [[ "`stat -c%s "$COMP"`" -gt "$MAX_SIZE" ]] ; then
   RES="'"$COMP"' too large.."

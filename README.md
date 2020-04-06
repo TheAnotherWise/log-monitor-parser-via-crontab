@@ -29,6 +29,8 @@
 ```bash
 #!/bin/bash
 
+MAX_SIZE="10240000"
+
 notify() {
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
   echo -e "$1" # | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
@@ -89,6 +91,10 @@ cat "$FILT" > "$COMP"
 rm -f "$FILT"
 
 SUBJ="Found Keywords ($LOG_FILE)"
+
+if [[ "`stat -c%s "$COMP"`" -gt "$MAX_SIZE" ]] ; then
+  RES="File Too Large, Check File '"$COMP"'.."
+fi
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"
 ```

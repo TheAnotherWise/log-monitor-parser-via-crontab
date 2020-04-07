@@ -89,6 +89,7 @@ KW4="password check failed|authentication failure"
 KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 
 FL1="dupablada"
+
 FILTERS="$FL1"
 
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" -print0 2>&1 \

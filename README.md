@@ -94,7 +94,7 @@ FILTERS="$FI1"
         
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" -print0 \
         | xargs -0 grep -aiE "$KEYWORDS" {} 2>/dev/null \
-        | [ "FILTERS" != "" ] && grep -iEav "$FILTERS" >> "$FILT" 2>/dev/null
+        | [ "$FILTERS" != "" ] && grep -iEav "$FILTERS" >> "$FILT" 2>/dev/null
 
 RES="`diff "$FILT" "$COMP"`"
 

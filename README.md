@@ -146,7 +146,7 @@ KEYWORDS=" 5[0-9]{2}"
 # Example Postfix Config
 ```
 POSTFIX_REPLAYHOST="127.0.0.1"
-POSTFIX_MYHOSTNAME="hostname.localdomain"
+POSTFIX_MYHOSTNAME="`hostname -f`"
 MAIL_ENV="Production"
 MAIL_HOST="host1"
 
@@ -164,13 +164,15 @@ zabbix-agent@`hostname -f`    zabbix-agent@`hostname -f`
 zabbix@`hostname -f`    zabbix@`hostname -f`
 EndOfMessage
 
+chmod 644 /etc/postfix/generic
+
 cat >/etc/postfix/header_checks  << EndOfMessage
 /^From: root@`hostname -f`/ REPLACE From: "$MAIL_ENV ($MAIL_HOST)" <root@`hostname -f`>
 /^From: zabbix-agent@`hostname -f`/ REPLACE From: "$MAIL_ENV ($MAIL_HOST) Zabbix Agent" <zabbix-agent@`hostname -f`>
 /^From: zabbix@`hostname -f`/ REPLACE From: "$MAIL_ENV ($MAIL_HOST) Zabbix" <zabbix@`hostname -f`>
 EndOfMessage
 
-chmod 644 /etc/postfix/generic
+chmod 644 /etc/postfix/header_checks
 
 rm -f /etc/postfix/generic.db
 

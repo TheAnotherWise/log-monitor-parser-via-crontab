@@ -78,7 +78,7 @@ if [ "$?" != "0" ] ; then
   notify "$RES" "$MAILS"
 fi
 
-KW1="err|crit|fail|warn|alert|emerg|denied|deny|"
+KW1="err|crit|fail|warn|alert|emerg|denied|deny"
 KW2="unread|unreach|miss|problem|block|terminat|exclude"
 KW3="reject|inject|eject|remove|purge|clean|clear|close"
 KW4="password check failed|authentication failure"

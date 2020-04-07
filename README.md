@@ -50,12 +50,12 @@ LOG_DIR="`readlink -f $1`"
 LOG_FILE="`echo "$2" | sed "s/\///g"`"
 
 if [ ! -d "$LOG_DIR" ] ; then
-  RES="'$LOG_DIR' must exist as dir..\r\n"
+  RES="'$LOG_DIR' must exist as dir\r\n"
   notify "$RES" "$MAILS"
 fi
 
 if [ -d "$LOG_DIR/$LOG_FILE" ] ; then
-  RES="'$LOG_DIR/$LOG_FILE' cannot be dir..\r\n"
+  RES="'$LOG_DIR/$LOG_FILE' cannot be dir\r\n"
   notify "$RES" "$MAILS"
 fi
 
@@ -94,10 +94,10 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-SUBJ="Found keywords ($LOG_FILE)"
+SUBJ="Found keywords '$LOG_FILE'"
 
 if [[ "`echo $RES | wc -c`" -gt "$MAX_SIZE" ]] ; then
-  RES="'"$COMP"' too large.."
+  RES="Result too large, check '$COMP'"
 fi
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"

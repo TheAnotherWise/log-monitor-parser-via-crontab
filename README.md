@@ -141,3 +141,42 @@ KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 KEYWORDS=" 5[0-9]{2}"
 
 # ... 
+```
+
+# Example Postfix Config
+```
+MAIL_ENV="Production"
+MAIL_HOST="node1"
+
+cat >/etc/postfix/generic << EndOfMessage
+root@`hostname -f`       root@`hostname -f`
+zabbix-agent@`hostname -f`     zabbix-agent@`hostname -f`
+zabbix@`hostname -f`   zabbix@`hostname -f`
+EndOfMessage
+
+cat >/etc/postfix/header_checks  << EndOfMessage
+/^From: root@`hostname -f`/ REPLACE From: "$MAIL_ENV ($MAIL_HOST)" <root@`hostname -f`>
+/^From: zabbix-agent@`hostname -f`/ REPLACE From: "$MAIL_ENV ($MAIL_HOST) Zabbix Agent" <zabbix-agent@`hostname -f`>
+/^From: zabbix@`hostname -f`/ REPLACE From: "$MAIL_ENV ($MAIL_HOST) Zabbix" <zabbix@`hostname -f`>
+EndOfMessage
+
+chmod 644 /etc/postfix/generic
+
+rm -f /etc/postfix/generic.db
+
+postmap /etc/postfix/generic
+postmap -q "root@`hostname -f`" /etc/postfix/generic
+
+service postfix restart && sleep 2 && echo "Message" | mailx -s "Subject" root@hostname.localdomain
+```
+
+### /etc/postfix/main.cf
+```
+myhostname = hostname.localdomain
+mydomain = $myhostname
+myorigin = $mydomain
+inet_protocols = ipv4
+relayhost = 127.0.0.1
+smtp_generic_maps = hash:/etc/postfix/generic
+smtp_header_checks = regexp:/etc/postfix/header_checks
+```

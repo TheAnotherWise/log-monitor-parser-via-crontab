@@ -145,21 +145,23 @@ KEYWORDS=" 5[0-9]{2}"
 
 # Example Postfix Config
 ```
-postconf -e "myhostname = hostname.localdomain"
+POSTFIX_REPLAYHOST="127.0.0.1"
+POSTFIX_MYHOSTNAME="hostname.localdomain"
+MAIL_ENV="Production"
+MAIL_HOST="host1"
+
+postconf -e "myhostname = $POSTFIX_MYHOSTNAME"
 postconf -e "mydomain = $myhostname"
 postconf -e "myorigin = $mydomain"
 postconf -e "inet_protocols = ipv4"
-postconf -e "relayhost = 127.0.0.1"
+postconf -e "relayhost = $POSTFIX_REPLAYHOST"
 postconf -e "smtp_generic_maps = hash:/etc/postfix/generic"
 postconf -e "smtp_header_checks = regexp:/etc/postfix/header_checks"
 
-MAIL_ENV="Production"
-MAIL_HOST="node1"
-
 cat >/etc/postfix/generic << EndOfMessage
-root@`hostname -f`       root@`hostname -f`
-zabbix-agent@`hostname -f`     zabbix-agent@`hostname -f`
-zabbix@`hostname -f`   zabbix@`hostname -f`
+root@`hostname -f`    root@`hostname -f`
+zabbix-agent@`hostname -f`    zabbix-agent@`hostname -f`
+zabbix@`hostname -f`    zabbix@`hostname -f`
 EndOfMessage
 
 cat >/etc/postfix/header_checks  << EndOfMessage

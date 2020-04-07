@@ -145,6 +145,14 @@ KEYWORDS=" 5[0-9]{2}"
 
 # Example Postfix Config
 ```
+postconf -e "myhostname = hostname.localdomain"
+postconf -e "mydomain = $myhostname"
+postconf -e "myorigin = $mydomain"
+postconf -e "inet_protocols = ipv4"
+postconf -e "relayhost = 127.0.0.1"
+postconf -e "smtp_generic_maps = hash:/etc/postfix/generic"
+postconf -e "smtp_header_checks = regexp:/etc/postfix/header_checks"
+
 MAIL_ENV="Production"
 MAIL_HOST="node1"
 
@@ -168,15 +176,4 @@ postmap /etc/postfix/generic
 postmap -q "root@`hostname -f`" /etc/postfix/generic
 
 service postfix restart && sleep 2 && echo "Message" | mailx -s "Subject" root@hostname.localdomain
-```
-
-### /etc/postfix/main.cf
-```
-myhostname = hostname.localdomain
-mydomain = $myhostname
-myorigin = $mydomain
-inet_protocols = ipv4
-relayhost = 127.0.0.1
-smtp_generic_maps = hash:/etc/postfix/generic
-smtp_header_checks = regexp:/etc/postfix/header_checks
 ```

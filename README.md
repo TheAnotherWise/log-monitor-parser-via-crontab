@@ -89,8 +89,14 @@ KW4="password check failed|authentication failure"
 
 KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 
+FI1="removed slice"
+FILTERS="$FI1"
+
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" \
         -exec grep -aiE "$KEYWORDS" {} 2>/dev/null \; >> "$FILT"
+        
+find /var/log -mindepth 1 -maxdepth 1 -type f -name "syslog.*" -print0 \
+        | xargs -0 grep -aiE "$KEYWORDS" {} 2>/dev/null | grep -iEav "$FILTERS" 2>/dev/null
 
 RES="`diff "$FILT" "$COMP"`"
 

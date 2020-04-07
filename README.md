@@ -97,7 +97,7 @@ rm -f "$FILT"
 SUBJ="Found keywords '$LOG_FILE'"
 
 if [[ "`echo $RES | wc -c`" -gt "$MAX_SIZE" ]] ; then
-  RES="Result too large, check '$COMP'"
+  RES="Result too large, check '$COMP'\r\n"
 fi
 
 [ -n "$RES" ] && notify "$RES" "$MAILS" "$SUBJ"

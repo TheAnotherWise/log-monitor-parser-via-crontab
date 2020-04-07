@@ -110,14 +110,23 @@ fi
 
 ## /root/crontab.d/log-monitor.cron
 ```bash
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log yum.log
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log kern.log
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log maillog
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log daemon.log
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log cron*
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/generic.sh /var/log secure*
+LOG_MONITOR_PATH="/root/crontab.d/log-monitor"
 
-*/5 * * * * /bin/bash /root/crontab.d/log-monitor/httpd.sh /var/log/httpd app_access.log*
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log messages >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log secure >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log dmesg >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log cron >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log syslog >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log maillog >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log grubby >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log firewalld >> $LOG_MONITOR_PATH/generic.log 2>&1
+ 
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log yum.log >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log kern.log >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log daemon.log >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log boot.log >> $LOG_MONITOR_PATH/generic.log 2>&1
+
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/httpd.sh /var/log/httpd app_access.log* >> $LOG_MONITOR_PATH/generic.log 2>&1
 ```
 
 ### `generic.sh` vs `httpd.sh`

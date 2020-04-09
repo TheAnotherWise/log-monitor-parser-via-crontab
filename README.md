@@ -30,8 +30,11 @@ echo -e "\r\n-----"
 echo -e "`date +"%Y-%m-%d %H:%M:%S"` $0 $@"
 
 notify() {
+  TMPFILE=`mktemp /tmp/XXXXX.txt`
+  echo -e "$1" > $TMPFILE
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
-  echo -e "$1" # | mailx -s "$SUBJECT" "$2" # unix2dos/dos2unix
+  echo " " | mailx -s "$SUBJECT" -a $TMPFILE "$2"
+  rm -f "$TMPFILE"
   exit
 }
 

@@ -33,7 +33,7 @@ notify() {
   TMPFILE=`mktemp /tmp/XXXXX.txt`
   echo -e "$1" > $TMPFILE
   [ -n "$3" ] && SUBJECT="$3" || SUBJECT="Cron Error"
-  echo " " | mailx -s "$SUBJECT" -a $TMPFILE "$2"
+  echo "" | mailx -s "$SUBJECT" -a $TMPFILE "$2"
   rm -f "$TMPFILE"
   exit
 }

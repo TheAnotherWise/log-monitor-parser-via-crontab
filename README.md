@@ -22,13 +22,19 @@ DBA1="admin1@hostname.localdomain"
 
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
-if [ "$#" != 2 ] ; then
-  RES="/bin/bash $0 abs_dir_path filename_regex\r\n"
+if [ "$#" != 3 ] ; then
+  RES="/bin/bash $0 name abs_dir_path filename_regex\r\n"
   notify "$RES" "$MAILS"
 fi
 
-LOG_DIR="`readlink -f $1`"
-LOG_FILE="`echo "$2" | sed "s/\///g"`"
+LOG_NAME="$1"
+LOG_DIR="`readlink -f $2`"
+LOG_FILE="`echo "$3" | sed "s/\///g"`"
+
+if [ "$LOG_NAME" =~ ^[a-zA-Z0-9]{3,9}$ ] ; then
+  RES="'$LOG_NAME' allowed characters [a-zA-Z0-9]{3,9}\r\n"
+  notify "$RES" "$MAILS"
+fi
 
 if [ ! -d "$LOG_DIR" ] ; then
   RES="'$LOG_DIR' must exist as dir\r\n"

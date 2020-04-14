@@ -93,19 +93,22 @@ fi
 ```bash
 LOG_MONITOR_PATH="/root/crontab.d/log-monitor"
 
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log messages >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log secure >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log dmesg >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log cron >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log syslog >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log maillog >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log grubby >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log firewalld >> $LOG_MONITOR_PATH/generic.log 2>&1
- 
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log yum.log >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log kern.log >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log daemon.log >> $LOG_MONITOR_PATH/generic.log 2>&1
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh /var/log boot.log >> $LOG_MONITOR_PATH/generic.log 2>&1
+VAR_LOG="/var/log"
 
-*/5 * * * * /bin/bash $LOG_MONITOR_PATH/httpd.sh /var/log/httpd app_access.log* >> $LOG_MONITOR_PATH/generic.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG messages >> $LOG_MONITOR_PATH/.generic.log.messages 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG secure >> $LOG_MONITOR_PATH/.generic.log.secure 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG dmesg >> $LOG_MONITOR_PATH/.generic.log.dmesg 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG cron >> $LOG_MONITOR_PATH/.generic.log.cron 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG syslog >> $LOG_MONITOR_PATH/.generic.log.syslog 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG maillog >> $LOG_MONITOR_PATH/.generic.log.maillog 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG grubby >> $LOG_MONITOR_PATH/.generic.log.grubby 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG firewalld >> $LOG_MONITOR_PATH/.generic.log.firewalld 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG yum.log >> $LOG_MONITOR_PATH/.generic.log-yum.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG kern.log >> $LOG_MONITOR_PATH/.generic.log-kern.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG daemon.log >> $LOG_MONITOR_PATH/.generic.log-daemon.log 2>&1
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh $VAR_LOG boot.log >> $LOG_MONITOR_PATH/.generic.log-boot.log 2>&1
+
+JBCS_HTTPD_ROOT="/opt/rh/jbcs-httpd24/root/var/log/httpd"
+
+*/5 * * * * /bin/bash $LOG_MONITOR_PATH/httpd.sh $JBCS_HTTPD_ROOT pccp_access.log >> $LOG_MONITOR_PATH/.httpd.log 2>&1
 ```

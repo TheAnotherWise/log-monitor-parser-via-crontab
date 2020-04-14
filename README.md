@@ -86,7 +86,7 @@ cat "$FILT" > "$COMP"
 
 rm -f "$FILT"
 
-SUBJ="Found Keywords! ($LOG_FILE)"
+SUBJ="Found Keywords! ($LOG_NAME: $LOG_FILE)"
 
 if [[ "`echo $RES | wc -c`" -gt "$MAX_SIZE" ]] ; then
   RES="Result too large ($COMP)\r\n"

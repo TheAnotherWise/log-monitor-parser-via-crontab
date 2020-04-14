@@ -66,13 +66,13 @@ KW4="password check failed|authentication failure"
 
 KEYWORDS="$KW1|$KW2|$KW3|$KW4"
 
-FL1="dupablada"
+FL1="dupa"
 
 FILTERS="$FL1"
 
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" -print0 2>&1 \
-        | xargs -0 grep -aiE "$KEYWORDS" 2>&1 \
-        | grep -iEav "$FILTERS" 2>&1 >> "$FILT" 
+    | xargs grep -aiE "$KEYWORDS" 2>&1 \
+    | grep -aiEv "$FILTERS" 2>&1 >> "$FILT" 
 
 RES="`diff "$FILT" "$COMP"`"
 

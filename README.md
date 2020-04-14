@@ -71,7 +71,7 @@ FL1="dupa"
 FILTERS="$FL1"
 
 find "$LOG_DIR" -mindepth 1 -maxdepth 1 -type f -name "$LOG_FILE" -print0 2>&1 \
-    | xargs grep -aiE "$KEYWORDS" 2>&1 \
+    | xargs -0 grep -aiE "$KEYWORDS" 2>&1 \
     | grep -aiEv "$FILTERS" 2>&1 >> "$FILT" 
 
 RES="`diff "$FILT" "$COMP"`"

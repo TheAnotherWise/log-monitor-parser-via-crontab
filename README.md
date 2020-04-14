@@ -23,7 +23,7 @@ DBA1="admin1@hostname.localdomain"
 MAILS="$DBA1,$DBA2,$DBA3,$DBA4"
 
 if [ "$#" != 3 ] ; then
-  RES="/bin/bash $0 name abs_dir_path filename_regex\r\n"
+  RES="/bin/bash $0 log_name dir_path filename\r\n"
   notify "$RES" "$MAILS"
 fi
 

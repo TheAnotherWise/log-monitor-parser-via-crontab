@@ -99,6 +99,8 @@ fi
 ```bash
 LOG_MONITOR_PATH="/root/crontab.d/log-monitor"
 
+# ---
+
 VAR_LOG="/var/log"
 
 */5 * * * * /bin/bash $LOG_MONITOR_PATH/generic.sh System $VAR_LOG messages >> $LOG_MONITOR_PATH/.generic.log.messages 2>&1
